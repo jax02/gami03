@@ -18,6 +18,9 @@
           <li class="nav-item pe-2">
             <router-link class="text-decoration-none" to="/">首頁</router-link>
           </li>
+          <li class="nav-item pe-2 ">
+           <router-link class="text-decoration-none" to="/courses">所有課程</router-link>
+          </li>
           <li class="nav-item pe-2">
             <router-link class="text-decoration-none" to="/test">測試</router-link>
           </li>

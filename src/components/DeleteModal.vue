@@ -45,8 +45,7 @@ export default {
   data () {
     return {
       DeleteModal: null,
-      token:
-        'eyJhbGciOiJSUzI1NiIsImtpZCI6InRCME0yQSJ9.eyJpc3MiOiJodHRwczovL3Nlc3Npb24uZmlyZWJhc2UuZ29vZ2xlLmNvbS92dWUtY291cnNlLWFwaSIsImF1ZCI6InZ1ZS1jb3Vyc2UtYXBpIiwiYXV0aF90aW1lIjoxNjQ3NzAyNTY3LCJ1c2VyX2lkIjoiNXFaM3puQlhiZ010TEJxdGdCVHlpOFRrSWlPMiIsInN1YiI6IjVxWjN6bkJYYmdNdExCcXRnQlR5aThUa0lpTzIiLCJpYXQiOjE2NDc3MDI1NjgsImV4cCI6MTY0ODEzNDU2OCwiZW1haWwiOiJqaW1teWppbW15NjY2NjZAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbImppbW15amltbXk2NjY2NkBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.H7y4ChsgOPOhpf1qE72Jaxqmsd-_wtvNcoLzoDsWJBbjgFZWO1YKf1y2o8WLS4IB63kthLqww2rQWVTCyHrLI3ryP8X8V3VNMqwIT3nmUL5_4Nkgl53UT9_SBM08dmIhdRH2EXG0ntscoCkzdl7XuN70ISLZiBWWH1fscpBrh8_8OSRtZ1vTMqeAQikik5Eu0IpTn_VcH53sZrTq603K2HOT9rN-DKD_AaH8c_FrshoGnVBcNU8z1f9v_4XJ7l4U9p_OuuogPv2aMxN9dCPWS64NagCcUxi-WHpsfRBoy9WAxu7G54wGfNKDkieq9tYkmR3SjTrxSMGaRvG4YLSR0w'
+      token: process.env.VUE_APP_TOKEN
     }
   },
   methods: {
@@ -62,7 +61,7 @@ export default {
         })
     },
     deleteCourse () {
-      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product/${this.courseId}`
+      const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/product/${this.courseId}`
       this.$http
         .delete(url)
         .then((res) => {

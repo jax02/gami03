@@ -104,8 +104,20 @@ export default {
   components: { DeleteModal, CreateEditModal },
   data () {
     return {
+      token: process.env.VUE_APP_TOKEN,
       modal: null,
-      temp: [],
+      temp: {
+        title: '',
+        category: 'course',
+        origin_price: 100,
+        price: 1000,
+        unit: '1',
+        description: '',
+        content: '',
+        is_enabled: 1,
+        imageUrl: '',
+        imagesUrl: []
+      },
       data: [],
       isNew: 1
     }
@@ -113,10 +125,11 @@ export default {
   methods: {
     getData () {
       this.$http(
-        `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products/all`
+        `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/products/all`
       )
         .then((res) => {
           this.data = res.data.products
+          console.log(this.data)
         })
         .catch((err) => {
           console.log(err)
@@ -124,23 +137,21 @@ export default {
     },
     openModal (status, item) {
       if (status === 'new') {
-        this.temp = []
-        console.log('new')
+        // this.temp = []
         this.isNew = 1
         this.Modal.show()
       } else if (status === 'edit') {
         this.temp = { ...item }
         this.isNew = 0
-        console.log('edit')
         this.Modal.show()
       } else {
         this.temp = { ...item }
         this.DeleteModal.show()
-        console.log('del')
       }
     }
   },
   mounted () {
+    this.axios.defaults.headers.common.Authorization = this.token
     this.Modal = new Modal(
       document.getElementById('Modal'),
       {

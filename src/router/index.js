@@ -5,15 +5,25 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView
-  },
-  {
-    path: '/admin',
-    component: () => import('../views/DashBoard.vue')
-  },
-  {
-    path: '/test',
-    component: () => import('../views/TestView.vue')
+    component: HomeView,
+    children: [
+      {
+        path: 'courses',
+        component: () => import('../views/CoursesView.vue')
+      },
+      {
+        path: 'course/:id',
+        component: () => import('../views/CourseView.vue')
+      },
+      {
+        path: 'admin',
+        component: () => import('../views/DashBoard.vue')
+      },
+      {
+        path: 'test',
+        component: () => import('../views/TestView.vue')
+      }
+    ]
   }
 ]
 

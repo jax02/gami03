@@ -1,4 +1,32 @@
 <template>
+<textarea v-model="this.content" id="editor"></textarea>
+<br>
+ <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  :true-value="1"
+                  :false-value="0"
+                  id="is_enable"
+                  v-model="test"
+                />
+                <label class="form-check-label" for="is_enable">
+                  是否啟用
+                </label>
+ </div>
+<br>
+  <div class="card" style="width: 18rem">
+    <img src="#" class="card-img-top" alt="課程圖" />
+    <div class="card-body">
+      <p class="card-text">
+        <span class="d-block text-start">標題</span>
+          <span class="badge mx-2 rounded-pill bg-secondary">Secondary</span>
+          <span class="badge rounded-pill bg-secondary">Secondary</span>
+      </p>
+      <button type="button" class="btn btn-outline-primary">開始上課</button>
+    </div>
+  </div>
+  <br />
   <button
     type="button"
     class="btn btn-primary"
@@ -28,58 +56,59 @@
         <div class="modal-body text-start">
           <div class="row">
             <div class="col">
-              <img class="img-fluid" src="https://images.unsplash.com/photo-1618477388954-7852f32655ec?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8amF2YXNjcmlwdHxlbnwwfDF8MHx8&auto=format&fit=crop&w=800&q=60" alt="">
+              <img
+                class="img-fluid"
+                src="https://images.unsplash.com/photo-1618477388954-7852f32655ec?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8amF2YXNjcmlwdHxlbnwwfDF8MHx8&auto=format&fit=crop&w=800&q=60"
+                alt=""
+              />
             </div>
             <div class="col">
-                <form>
-            <div class="mb-3 ">
-              <label for="courseTitle" class="form-label"
-                >課程標題</label
-              >
-              <input
-                type="text"
-                class="form-control"
-                id="courseTitle"
-                placeholder="請輸入課程標題"
-              />
-            </div>
-            <div class="mb-3">
-              <label for="courseDescription" class="form-label"
-                >課程描述</label
-              >
-              <textarea
-                type="text"
-                class="form-control"
-                id="courseDescription"
-                placeholder="請輸入課程描述"
-              />
-            </div>
-            <div class="mb-3">
-              <label for="courseImageUrl" class="form-label"
-                >效果預覽圖</label
-              >
-              <input
-                type="text"
-                class="form-control"
-                id="courseImageUrl"
-                placeholder="請輸入課程效果預覽圖"
-              />
-            </div>
-            <div class="mb-3">
-              <label for="courseKeywords" class="form-label"
-                >課程關鍵字</label
-              >
-              <input
-                type="text"
-                class="form-control"
-                id="courseKeywords"
-                placeholder="請輸入課程關鍵字"
-              />
-            </div>
-          </form>
+              <form>
+                <div class="mb-3">
+                  <label for="courseTitle" class="form-label">課程標題</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="courseTitle"
+                    placeholder="請輸入課程標題"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="courseDescription" class="form-label"
+                    >課程描述</label
+                  >
+                  <textarea
+                    type="text"
+                    class="form-control"
+                    id="courseDescription"
+                    placeholder="請輸入課程描述"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="courseImageUrl" class="form-label"
+                    >效果預覽圖</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="courseImageUrl"
+                    placeholder="請輸入課程效果預覽圖"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="courseKeywords" class="form-label"
+                    >課程關鍵字</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="courseKeywords"
+                    placeholder="請輸入課程關鍵字"
+                  />
+                </div>
+              </form>
             </div>
           </div>
-
         </div>
         <div class="modal-footer">
           <button
@@ -263,3 +292,24 @@
     </div>
   </div>
 </template>
+<script>
+import * as CodeMirror from 'codemirror'
+import 'codemirror/lib/codemirror.css'
+import 'codemirror/theme/dracula.css'
+import 'codemirror/mode/javascript/javascript.js'
+export default {
+  data () {
+    return {
+      test: '',
+      content: 'let a = 0;'
+    }
+  },
+  mounted () {
+    CodeMirror.fromTextArea(document.getElementById('editor'), {
+      lineNumbers: 'true',
+      theme: 'dracula',
+      mode: 'javascript'
+    })
+  }
+}
+</script>

@@ -21,3 +21,11 @@ git commit -m 'deploy'
 git push -f git@github.com:jax02/gami03.git master:gh-pages
 
 cd -
+
+#傳檔案上github
+#git init
+#git remote add origin https://github.com/jax02/gami03.git
+#git add .
+#git commit -m "Initial commit" 
+#上方"Initial commit" 內容自訂
+#git push -u origin master
