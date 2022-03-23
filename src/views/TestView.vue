@@ -1,27 +1,46 @@
 <template>
-<textarea v-model="this.content" id="editor"></textarea>
-<br>
- <div class="form-check">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  :true-value="1"
-                  :false-value="0"
-                  id="is_enable"
-                  v-model="test"
-                />
-                <label class="form-check-label" for="is_enable">
-                  是否啟用
-                </label>
- </div>
-<br>
+  <div class="container-fluid bg-secondary bg-gradient">
+    <div class="container pt-3 pb-2">
+    <div class="row">
+      <div class="col-6">
+        <div class="row">
+          <div class="col text-start text-white fs-3"><p>javascript : </p></div>
+          <div class="col text-end"><button type="button" class="btn btn-lg btn-secondary">></button></div>
+        </div>
+        <textarea v-model="this.content" id="editor"></textarea>
+      </div>
+      <div class="col-6 overflow-hidden">
+        <div class="row">
+          <div class="col">
+            <div class="col text-start text-white fs-3"><p>效果顯示 ：</p></div>
+          </div>
+        </div>
+        <iframe id="preview" class="h-100 w-100 bg-dark"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <br />
+  <div class="form-check">
+    <input
+      class="form-check-input"
+      type="checkbox"
+      :true-value="1"
+      :false-value="0"
+      id="is_enable"
+      v-model="test"
+    />
+    <label class="form-check-label" for="is_enable"> 是否啟用 </label>
+  </div>
+  <br />
   <div class="card" style="width: 18rem">
     <img src="#" class="card-img-top" alt="課程圖" />
     <div class="card-body">
       <p class="card-text">
         <span class="d-block text-start">標題</span>
-          <span class="badge mx-2 rounded-pill bg-secondary">Secondary</span>
-          <span class="badge rounded-pill bg-secondary">Secondary</span>
+        <span class="badge mx-2 rounded-pill bg-secondary">Secondary</span>
+        <span class="badge rounded-pill bg-secondary">Secondary</span>
       </p>
       <button type="button" class="btn btn-outline-primary">開始上課</button>
     </div>
@@ -301,11 +320,28 @@ export default {
   data () {
     return {
       test: '',
-      content: 'let a = 0;'
+      // 用var才可以重複執行，let、const都不行
+      content: `var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");
+ctx.moveTo(0, 0);
+ctx.lineTo(200, 300);
+ctx.stroke();`,
+      editor: null
+    }
+  },
+  methods: {
+    getValue () {
+      this.test = this.editor.getValue()
+      const htmlCode = '<canvas id="myCanvas" height="500"></canvas>'
+      const jsCode = '<scri' + 'pt>' + `${this.test}` + '</scri' + 'pt>'
+      this.preview.contentWindow.document.open()
+      this.preview.contentWindow.document.write(htmlCode + jsCode)
+      this.preview.contentWindow.document.close()
     }
   },
   mounted () {
-    CodeMirror.fromTextArea(document.getElementById('editor'), {
+    this.preview = document.querySelector('#preview')
+    this.editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
       lineNumbers: 'true',
       theme: 'dracula',
       mode: 'javascript'
