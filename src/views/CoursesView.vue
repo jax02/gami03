@@ -3,8 +3,9 @@
     <div class="container">
     <div class="row row-cols-4 g-3">
       <div class="col" v-for="item in courseData" :key="item.id">
-        <div class="card" style="width: 18rem" >
-          <img :src="item.imageUrl" class="card-img-top" alt="課程圖" />
+        <div class="card h-100" style="width: 18rem" >
+          <img v-if="item.imageUrl" :src="item.imageUrl" class="h-100 card-img-top" alt="課程圖" />
+          <img v-else class="h-100" src="https://media.istockphoto.com/photos/man-meets-digital-avatar-of-himself-made-with-a-hologram-picture-id1317150019?b=1&k=20&m=1317150019&s=170667a&w=0&h=wcoKHusFII_C6Je_Kn4LB1ktcahhr1SgBD09Hmlg8jw=" alt="">
           <div class="card-body">
             <p class="card-text">
               <span class="d-block text-start">{{ item.title }}</span>

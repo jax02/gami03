@@ -70,6 +70,18 @@
                   v-model="this.temp.keyWords"
                 />
               </div>
+              <div class="mb-3">
+                <label for="courseKeywords" class="form-label"
+                  >片段碼</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="courseCode"
+                  placeholder="請輸入課程片段碼"
+                  v-model="this.temp.Code"
+                />
+              </div>
               <div class="form-check">
                 <input
                   class="form-check-input"

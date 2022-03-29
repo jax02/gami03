@@ -1,21 +1,77 @@
 <template>
-<div class="container-fluid bg-secondary bg-gradient">
+  <!-- 側邊欄 -->
+  <div
+    class="offcanvas offcanvas-end"
+    tabindex="-1"
+    id="offcanvasRight"
+    aria-labelledby="offcanvasRightLabel"
+  >
+    <div class="offcanvas-header">
+      <h5 id="offcanvasRightLabel">小提示</h5>
+      <button
+        type="button"
+        class="btn-close text-reset"
+        data-bs-dismiss="offcanvas"
+        aria-label="Close"
+      ></button>
+    </div>
+    <div class="offcanvas-body">
+      <p class="text-start">
+        相關指令：
+        <span class="badge rounded-pill bg-success">html</span>
+      </p>
+      <p class="text-start">片段碼：</p>
+      <pre class="text-start"><code>ctx.beginPath();
+ctx.arc(75, 75, 50, 0, Math.PI * 2, true); // Outer circle
+ctx.moveTo(110, 75);
+ctx.arc(75, 75, 35, 0, Math.PI, false); // Mouth (clockwise)
+ctx.moveTo(65, 65);
+ctx.arc(60, 65, 5, 0, Math.PI * 2, true); // Left eye
+ctx.moveTo(95, 65);
+ctx.arc(90, 65, 5, 0, Math.PI * 2, true); // Right eye
+ctx.closePath()
+ctx.stroke();</code></pre>
+    </div>
+  </div>
+  <!-- 側邊欄 -->
+  <div class="container-fluid bg-secondary bg-gradient">
     <div class="container pt-3 pb-3">
-    <div class="row">
-      <div class="col-6">
-        <div class="row">
-          <div class="col text-start text-white fs-3"><p>javascript : </p></div>
-          <div class="col text-end"><button type="button" class="btn btn-lg btn-secondary"  @click="refresh">></button></div>
-        </div>
-        <textarea id="editor" v-model="this.code"></textarea>
-      </div>
-      <div class="col-6 overflow-hidden">
-        <div class="row">
-          <div class="col">
-            <div class="col text-start text-white fs-3"><p>效果顯示 ：</p></div>
+      <div class="row">
+        <div class="col-6">
+          <div class="row">
+            <div class="col text-start text-white fs-3">
+              <p>javascript :</p>
+            </div>
+            <div class="col text-end">
+              <button
+                type="button"
+                class="mx-2 btn btn-lg btn-secondary"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasRight"
+                aria-controls="offcanvasRight"
+              >
+                !
+              </button>
+              <button
+                type="button"
+                class="btn btn-lg btn-secondary"
+                @click="refresh"
+              >
+                >
+              </button>
+            </div>
           </div>
+          <textarea id="editor" v-model="this.code"></textarea>
         </div>
-        <iframe id="preview" class=" h-100 w-100 bg-light"></iframe>
+        <div class="col-6 overflow-hidden">
+          <div class="row">
+            <div class="col">
+              <div class="col text-start text-white fs-3">
+                <p>效果顯示 ：</p>
+              </div>
+            </div>
+          </div>
+          <iframe id="preview" class="h-100 w-100 bg-light"></iframe>
         </div>
       </div>
     </div>
@@ -32,8 +88,11 @@ export default {
     return {
       code: `var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+// 上方為必要內容
 ctx.moveTo(0, 0);
-ctx.lineTo(200, 100);
+ctx.lineTo(600, 290);
 ctx.stroke();`,
       editor: null,
       preview: null,
@@ -52,8 +111,7 @@ ctx.stroke();`,
     },
     refresh () {
       this.code = this.editor.getValue()
-      this.htmlCode =
-        '<canvas id="myCanvas"></canvas>'
+      this.htmlCode = '<canvas id="myCanvas"></canvas>'
       this.jsCode = '<scri' + 'pt>' + `${this.code}` + '</scri' + 'pt>'
       console.log(this.htmlCode, this.jsCode)
       document.querySelector('#preview').contentWindow.document.open()

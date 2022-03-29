@@ -116,7 +116,8 @@ export default {
         content: '',
         is_enabled: 1,
         imageUrl: '',
-        imagesUrl: []
+        imagesUrl: [],
+        Code: ''
       },
       data: [],
       isNew: 1
