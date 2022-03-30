@@ -1,10 +1,10 @@
 <template>
 <swiper
     :slides-per-view="1"
-    :space-between="50"
+    :space-between="10"
   >
     <swiper-slide v-for="item in data" :key="item.id">
-      <img :src="item.imageUrl" alt="">
+      <img :src="item.imageUrl" alt="" class="img-fluid">
     </swiper-slide>
   </swiper>
 <br>

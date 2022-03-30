@@ -16,7 +16,10 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item pe-2">
-            <router-link class="text-decoration-none" to="/">首頁</router-link>
+            <router-link class="text-decoration-none" to="/">root</router-link>
+          </li>
+          <li class="nav-item pe-2">
+            <router-link class="text-decoration-none" to="/Home">首頁</router-link>
           </li>
           <li class="nav-item pe-2 ">
            <router-link class="text-decoration-none" to="/courses">所有課程</router-link>
@@ -26,6 +29,9 @@
           </li>
           <li class="nav-item pe-2 ">
            <router-link class="text-decoration-none" to="/admin">後台</router-link>
+          </li>
+          <li class="nav-item pe-2 ">
+           <router-link class="text-decoration-none" to="/user">使用者</router-link>
           </li>
         </ul>
       </div>

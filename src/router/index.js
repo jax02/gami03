@@ -22,12 +22,20 @@ const routes = [
       {
         path: 'test',
         component: () => import('../views/TestView.vue')
-      },
-      {
-        path: 'login',
-        component: () => import('../views/LoginView.vue')
       }
     ]
+  },
+  {
+    path: '/Home',
+    component: () => import('../views/FrontView.vue')
+  },
+  {
+    path: '/login',
+    component: () => import('../views/LoginView.vue')
+  },
+  {
+    path: '/user',
+    component: () => import('../views/UserProfile.vue')
   }
 ]
 
