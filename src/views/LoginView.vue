@@ -102,14 +102,15 @@ export default {
     return {
       id: 'test',
       email: '',
-      password: ''
+      password: '',
+      displayName: '123'
     }
   },
   methods: {
     register () {
       createUserWithEmailAndPassword(getAuth(), this.email, this.password)
         .then((res) => {
-          console.log('sucess')
+          console.log(res)
         })
         .catch((err) => {
           console.log(err.code)
@@ -118,8 +119,8 @@ export default {
     login () {
       signInWithEmailAndPassword(getAuth(), this.email, this.password)
         .then((res) => {
-          console.log('sucess')
           this.toastLogin()
+          this.createUser(res.user.uid, res.user.displayName)
         })
         .catch((err) => {
           console.log(err)
@@ -142,6 +143,10 @@ export default {
           console.log('google login sucess', res.user)
           this.toastLogin()
           this.createUser(res.user.uid, res.user.displayName)
+          const { accessToken, uid } = res.user
+          document.cookie = `gamiSDLToken = ${accessToken};`
+          document.cookie = `gamiSDLId = ${uid};`
+          console.log(document.cookie)
           // this.getProfile()
         })
         .catch((err) => {
@@ -172,8 +177,7 @@ export default {
         userData
       })
     },
-    mounted () {
-    }
+    mounted () {}
   }
 }
 </script>

@@ -8,12 +8,12 @@
           <div
             class="progress-bar"
             role="progressbar"
-            style="width: 55%"
-            aria-valuenow="25"
+            :style="{ width: this.completeSchedule + '%' }"
+            :aria-valuenow="25"
             aria-valuemin="0"
             aria-valuemax="100"
           >
-            25%
+            {{this.completeSchedule}}%
           </div>
         </div>
         <h3 class="text-start mt-5">個人資料:</h3>
@@ -48,7 +48,7 @@
   <div class="container-fluid bg-light1">
     <div class="row">
         <div class="col-2"></div>
-      <div class="col-4">
+      <div class="col col-lg-4 mb-3">
         <h3>已完成：</h3>
         <div class="row">
           <div class="col-12">
@@ -101,7 +101,7 @@
           </div>
         </div>
       </div>
-      <div class="col-4">
+      <div class="col col-lg-4 mb-3">
         <h3>待完成：</h3>
         <div class="row">
           <div class="col-12">
@@ -180,6 +180,7 @@ export default {
       now: 11,
       data: null,
       username: '',
+      completeSchedule: 45,
       courseData: []
     }
   },
@@ -190,6 +191,7 @@ export default {
         .then((snapshot) => {
           if (snapshot.exists()) {
             this.data = snapshot.val()
+            // this.completeSchedule = this.data.userData.completeSchedule
             this.username = this.data.userData.username
           } else {
             console.log('No data available')

@@ -73,6 +73,17 @@ export default {
           console.log(err)
         })
     }
+    // filterCourse () {
+    //   this.$http(
+    //     `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/product/${id}`
+    //   )
+    //     .then((res) => {
+    //       this.courseData = res.data.product
+    //     })
+    //     .catch((err) => {
+    //       console.log(err)
+    //     })
+    // }
   },
   mounted () {
     this.getData()

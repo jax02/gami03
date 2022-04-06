@@ -3,7 +3,7 @@
   <div class="container">
     <div class="my-3 d-flex justify-content-end">
       <button
-        @click="openModal ('new',item)"
+        @click="openModal('new', item)"
         type="button"
         class="btn bnt-lg fs-4 rounded btn-primary"
         data-bs-toggle="modal"
@@ -48,12 +48,12 @@
                     alt="結果圖"
                   />
                 </div>
-                <div class="col position-relative">
+                <div class="col position-relative h-100 p-5">
                   課程描述
                   {{ item.description }}
                   <br />
                   <button
-                    @click="openModal('del',item)"
+                    @click="openModal('del', item)"
                     type="button"
                     class="btn btn-danger position-absolute bottom-0 start-0"
                     data-bs-toggle="modal"
@@ -62,7 +62,7 @@
                     刪除
                   </button>
                   <button
-                    @click="openModal ('edit',item)"
+                    @click="openModal('edit', item)"
                     type="button"
                     class="btn btn-primary position-absolute bottom-0 end-0"
                   >
@@ -88,12 +88,12 @@
     aria-labelledby="exampleModalLabel"
     aria-hidden="true"
   >
-  <CreateEditModal
-     :course-temp="temp"
-     :status="this.isNew"
-     ref="CreateEditModal"
-  ></CreateEditModal>
-</div>
+    <CreateEditModal
+      :course-temp="temp"
+      :status="this.isNew"
+      ref="CreateEditModal"
+    ></CreateEditModal>
+  </div>
 </template>
 
 <script>
@@ -124,13 +124,36 @@ export default {
     }
   },
   methods: {
+    checkLogin () {
+      const token = document.cookie.replace(
+        /* eslint-disable */
+        /(?:(?:^|.*;\s*)hexToken\s*\=\s*([^;]*).*$)|^.*$/, '$1')
+         /* eslint-disable */
+      if (token) {
+        this.$http.defaults.headers.common.Authorization = token
+        const api = `${process.env.VUE_APP_API}/api/user/check`
+        this.$http
+          .post(api, { api_token: this.token })
+          .then((res) => {
+            this.checkSucess = true
+            this.getData()
+          })
+          .catch((err) => {
+            console.log(err)
+            this.$router.push('/dashboardLogin')
+          })
+      } else {
+        alert('請先登入')
+        this.$router.push('/login')
+      }
+    },
     getData () {
       this.$http(
         `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/products/all`
       )
         .then((res) => {
           this.data = res.data.products
-          console.log(this.data)
+          // console.log(this.data)
         })
         .catch((err) => {
           console.log(err)
@@ -152,20 +175,14 @@ export default {
     }
   },
   mounted () {
-    this.axios.defaults.headers.common.Authorization = this.token
-    this.Modal = new Modal(
-      document.getElementById('Modal'),
-      {
-        keyboard: false
-      }
-    )
-    this.DeleteModal = new Modal(
-      document.getElementById('DeleteModal'),
-      {
-        keyboard: false
-      }
-    )
+    this.Modal = new Modal(document.getElementById('Modal'), {
+      keyboard: false
+    })
+    this.DeleteModal = new Modal(document.getElementById('DeleteModal'), {
+      keyboard: false
+    })
     this.getData()
+    this.checkLogin()
   }
 }
 </script>

@@ -47,6 +47,18 @@
                 />
               </div>
               <div class="mb-3">
+                <label for="courseDescription" class="form-label"
+                  >難度分類</label
+                >
+               <input
+                  type="text"
+                  class="form-control"
+                  id="courseImageUrl"
+                  placeholder="請輸入難度分類（簡單、普通、困難）"
+                  v-model="this.temp.category"
+                />
+              </div>
+              <div class="mb-3">
                 <label for="courseImageUrl" class="form-label"
                   >效果預覽圖</label
                 >
@@ -80,6 +92,18 @@
                   id="courseCode"
                   placeholder="請輸入課程片段碼"
                   v-model="this.temp.Code"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="courseKeywords" class="form-label"
+                  >難度</label
+                >
+                <input
+                  type="number"
+                  class="form-control"
+                  id="courseCode"
+                  placeholder="請輸入課程難度（1-入門、2-普通、3-困難）"
+                  v-model="this.temp.level"
                 />
               </div>
               <div class="form-check">
@@ -146,20 +170,6 @@ export default {
       // 監聽props的值是否有改變
       if (this.status !== this.isNew) {
         this.isNew = this.status
-        // if (this.isNew) {
-        //   this.temp = {
-        //     title: '',
-        //     catrgory: '',
-        //     origin_price: '',
-        //     price: '',
-        //     unit: '',
-        //     description: '',
-        //     content: '',
-        //     is_enable: '',
-        //     imageUrl: '',
-        //     imagesUrl: []
-        //   }
-        // }
       }
     }
   },
@@ -182,7 +192,7 @@ export default {
       this.$http
         .put(url, { data })
         .then((res) => {
-          console.log(res)
+          // console.log(res)
         })
         .catch((err) => {
           console.log(err)

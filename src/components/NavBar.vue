@@ -33,6 +33,9 @@
           <li class="nav-item pe-2 ">
            <router-link class="text-decoration-none" to="/user">使用者</router-link>
           </li>
+          <li class="nav-item pe-2 ">
+           <router-link class="text-decoration-none" to="/dashboardLogin">後台登入</router-link>
+          </li>
         </ul>
       </div>
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
