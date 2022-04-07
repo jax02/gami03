@@ -3,22 +3,50 @@
   <div class="container d-flex justify-content-center">
     <div class="row row-cols-2 row-cols-lg-4 g-3 w-50 m-4">
       <div class="col">
-        <button type="button" class="btn btn-lg btn-outline-dark" @click="getData">全部</button>
+        <button
+          type="button"
+          class="btn btn-lg btn-outline-dark"
+          @click="getData"
+        >
+          全部
+        </button>
       </div>
       <div class="col">
-        <button type="button" class="btn btn-lg btn-outline-dark" @click="filterData('簡單')">入門</button>
+        <button
+          type="button"
+          class="btn btn-lg btn-outline-dark"
+          @click="filterData('簡單')"
+        >
+          入門
+        </button>
       </div>
       <div class="col">
-        <button type="button" class="btn btn-lg btn-outline-dark" @click="filterData('普通')">普通</button>
+        <button
+          type="button"
+          class="btn btn-lg btn-outline-dark"
+          @click="filterData('普通')"
+        >
+          普通
+        </button>
       </div>
       <div class="col">
-        <button type="button" class="btn btn-lg btn-outline-dark" @click="filterData('困難')">困難</button>
+        <button
+          type="button"
+          class="btn btn-lg btn-outline-dark"
+          @click="filterData('困難')"
+        >
+          困難
+        </button>
       </div>
     </div>
   </div>
   <div class="container">
-    <div class="row row-cols-1 row-cols-lg-4 g-3 mb-3 ">
-      <div class="col d-flex justify-content-center" v-for="item in courseData" :key="item.id">
+    <div class="row row-cols-1 row-cols-lg-4 g-3 mb-3">
+      <div
+        class="col d-flex justify-content-center"
+        v-for="item in courseData"
+        :key="item.id"
+      >
         <div class="card h-100" style="width: 18rem">
           <img
             v-if="item.imageUrl"
@@ -64,15 +92,17 @@ export default {
       )
         .then((res) => {
           this.courseData = res.data.products
+          console.log(this.courseData)
         })
         .catch((err) => {
           console.log(err)
         })
     },
     filterData (category) {
-      this.$http.get(
-        `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products?category=${category}`
-      )
+      this.$http
+        .get(
+          `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products?category=${category}`
+        )
         .then((res) => {
           this.courseData = res.data.products
         })

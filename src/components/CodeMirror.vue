@@ -37,7 +37,22 @@ ctx.stroke();</code></pre>
   <div class="container-fluid bg-secondary bg-gradient">
     <div class="container pt-3 pb-3">
       <div class="row">
-        <div class="col-6">
+        <p class="text-start text-white fs-3 mb-0">
+          目前進度 ：{{ allData.length }}
+        </p>
+        <div class="progress mb-3">
+          <div
+            class="progress-bar progress-bar-striped"
+            role="progressbar"
+            :style="`width:${this.test}%`"
+            aria-valuenow="10"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          ></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-lg-6">
           <div class="row">
             <div class="col text-start text-white fs-3">
               <p>javascript :</p>
@@ -63,7 +78,7 @@ ctx.stroke();</code></pre>
           </div>
           <textarea id="editor" v-model="this.code"></textarea>
         </div>
-        <div class="col-6 overflow-hidden">
+        <div class="col-12 col-lg-6 overflow-hidden">
           <div class="row">
             <div class="col">
               <div class="col text-start text-white fs-3">
@@ -86,6 +101,7 @@ import 'codemirror/mode/javascript/javascript.js'
 export default {
   data () {
     return {
+      test: '70',
       code: `var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
@@ -97,7 +113,8 @@ ctx.stroke();`,
       editor: null,
       preview: null,
       htmlCode: '',
-      jsCode: ''
+      jsCode: '',
+      scheduleData: []
       //       content: `let canvas = document.getElementById("myCanvas");
       // let ctx = canvas.getContext("2d");
       // ctx.moveTo(0, 0);
@@ -120,6 +137,19 @@ ctx.stroke();`,
         .contentWindow.document.write(this.htmlCode + this.jsCode)
       document.querySelector('#preview').contentWindow.document.close()
       this.jsCode = ' '
+    },
+    allData (category) {
+      this.$http
+        .get(
+          `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products?category=${category}`
+        )
+        .then((res) => {
+          this.scheduleData = res.data.products
+          console.log(this.scheduleData)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     }
   },
   mounted () {
@@ -128,6 +158,7 @@ ctx.stroke();`,
       theme: 'dracula',
       mode: 'javascript'
     })
+    this.allData('普通')
   }
 }
 </script>

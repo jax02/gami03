@@ -1,4 +1,7 @@
 <template>
+<scheduleChart></scheduleChart>
+<br>
+<PlanetChart></PlanetChart>
 <swiper
     :slides-per-view="1"
     :space-between="10"
@@ -431,10 +434,14 @@ import * as CodeMirror from 'codemirror'
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/theme/dracula.css'
 import 'codemirror/mode/javascript/javascript.js'
+import PlanetChart from '@/components/PlanetChart.vue'
+import scheduleChart from '@/components/scheduleChart.vue'
 export default {
   components: {
     Swiper,
-    SwiperSlide
+    SwiperSlide,
+    PlanetChart,
+    scheduleChart
   },
   data () {
     return {
