@@ -1,30 +1,37 @@
 <template>
   <h2>所有課程</h2>
   <div class="container d-flex justify-content-center">
-    <div class="row row-cols-2 row-cols-lg-4 g-3 w-50 m-4">
+    <div class="row row-cols-2 row-cols-lg-4 g-3 w-75 m-4">
       <div class="col">
-        <button
+        <select id="select" class="form-select h-100 w-100" aria-label="course select" @change="select">
+          <option selected>篩選分類</option>
+          <option value="全部">全部</option>
+          <option value="簡單">簡單</option>
+          <option value="普通">普通</option>
+          <option value="困難">困難</option>
+        </select>
+        <!-- <button
           type="button"
-          class="btn btn-lg btn-outline-dark"
+          class="btn btn-lg btn-outline-dark w-75"
           @click="getData"
         >
           全部
-        </button>
+        </button> -->
       </div>
       <div class="col">
         <button
           type="button"
-          class="btn btn-lg btn-outline-dark"
-          @click="filterData('簡單')"
+          class="btn btn-lg btn-outline-dark w-75"
+          @click="courseLevel('簡單')"
         >
-          入門
+          簡單
         </button>
       </div>
       <div class="col">
         <button
           type="button"
-          class="btn btn-lg btn-outline-dark"
-          @click="filterData('普通')"
+          class="btn btn-lg btn-outline-dark w-75"
+          @click="courseLevel('普通')"
         >
           普通
         </button>
@@ -32,8 +39,8 @@
       <div class="col">
         <button
           type="button"
-          class="btn btn-lg btn-outline-dark"
-          @click="filterData('困難')"
+          class="btn btn-lg btn-outline-dark w-75"
+          @click="courseLevel('困難')"
         >
           困難
         </button>
@@ -48,8 +55,18 @@
         :key="item.id"
       >
         <div class="position-relative card h-100" style="width: 18rem">
-          <span v-for="id in saveId" :key="id+123">
-            <span v-if="item.id === id" id="finish" class="mt-3 me-3 position-absolute top-0 end-0 badge rounded-pill bg-primary">完成</span>
+          <span v-for="id in saveId" :key="id + 123">
+            <span
+              v-if="item.id === id"
+              id="finish"
+              class="mt-3 me-3 position-absolute top-0 start-50 rounded-circle bg-white"
+            >
+              <img
+                class="img-fluid"
+                src="https://i.imgur.com/tQtU5AS.png"
+                alt=""
+              />
+            </span>
           </span>
           <img
             v-if="item.imageUrl"
@@ -86,17 +103,25 @@ export default {
   data () {
     return {
       courseData: [],
+      level: [],
       saveId: JSON.parse(localStorage.getItem('saveId')) || []
     }
   },
   methods: {
+    select () {
+      const option = document.querySelector('#select').value
+      if (option === '全部') {
+        this.getData()
+      } else {
+        this.filterData(option)
+      }
+    },
     getData () {
       this.$http(
         `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products/all`
       )
         .then((res) => {
           this.courseData = res.data.products
-          console.log(this.courseData)
         })
         .catch((err) => {
           console.log(err)
@@ -113,16 +138,29 @@ export default {
         .catch((err) => {
           console.log(err)
         })
+    },
+    courseLevel (level) {
+      this.$http
+        .get(
+          `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products?category=${level}`
+        )
+        .then((res) => {
+          this.level = res.data.products
+          this.$router.push(`/course/${this.level[0].id}`)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+      console.log(this.level)
     }
   },
   mounted () {
     this.getData()
-    console.log(this.saveId)
   }
 }
 </script>
 <style>
-#finish{
+/* #finish{
   transform:rotate(25deg)
-}
+} */
 </style>

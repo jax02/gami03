@@ -35,7 +35,7 @@
   </div>
   <div class="container">
     <div class="row mb-5">
-      <code-mirror></code-mirror>
+      <code-mirror :courseCode="this.courseData.Code"></code-mirror>
     </div>
   </div>
 </template>
@@ -47,7 +47,8 @@ export default {
   data () {
     return {
       courseData: [],
-      scheduleData: []
+      scheduleData: [],
+      category: null
     }
   },
   methods: {
@@ -59,6 +60,8 @@ export default {
       )
         .then((res) => {
           this.courseData = res.data.product
+          this.category = this.courseData.category
+          this.allData(this.category)
         })
         .catch((err) => {
           console.log(err)
@@ -71,7 +74,7 @@ export default {
         )
         .then((res) => {
           this.scheduleData = res.data.products
-          console.log(this.scheduleData)
+          // console.log(this.scheduleData)
         })
         .catch((err) => {
           console.log(err)
@@ -80,7 +83,6 @@ export default {
   },
   mounted () {
     this.getData()
-    this.allData('普通')
   }
 }
 </script>

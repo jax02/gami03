@@ -68,13 +68,13 @@ ctx.stroke();</code></pre>
               </button>
             </div>
           </div>
-          <textarea id="editor" v-model="this.code"></textarea>
+          <textarea id="editor"></textarea>
         </div>
         <div class="col-12 col-lg-6 overflow-hidden">
           <div class="row">
             <div class="col">
               <div class="col text-start text-white fs-3">
-                <p>效果顯示 ：</p>
+                <p>效果顯示 ：{{}}</p>
               </div>
             </div>
           </div>
@@ -89,59 +89,31 @@ import * as CodeMirror from 'codemirror'
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/theme/dracula.css'
 import 'codemirror/mode/javascript/javascript.js'
-
 export default {
+  props: ['courseCode'],
+  watch: {
+    courseCode () {
+      this.code = this.courseCode
+      this.editor.setValue(this.code)
+    }
+  },
   data () {
     return {
-      test: '70',
-      code: `var canvas = document.getElementById("myCanvas");
-var ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-// 上方為必要內容
-ctx.moveTo(0, 0);
-ctx.lineTo(600, 290);
-ctx.stroke();`,
-      editor: null,
-      preview: null,
-      htmlCode: '',
-      jsCode: '',
+      code: '',
       saveId: JSON.parse(localStorage.getItem('saveId')) || []
-      //       content: `let canvas = document.getElementById("myCanvas");
-      // let ctx = canvas.getContext("2d");
-      // ctx.moveTo(0, 0);
-      // ctx.lineTo(200, 100);
-      // ctx.stroke();`
     }
   },
   methods: {
-    changeCode () {
-      this.code = this.editor.getValue()
-    },
     refresh () {
       this.code = this.editor.getValue()
       this.htmlCode = '<canvas id="myCanvas"></canvas>'
       this.jsCode = '<scri' + 'pt>' + `${this.code}` + '</scri' + 'pt>'
-      console.log(this.htmlCode, this.jsCode)
       document.querySelector('#preview').contentWindow.document.open()
       document
         .querySelector('#preview')
         .contentWindow.document.write(this.htmlCode + this.jsCode)
       document.querySelector('#preview').contentWindow.document.close()
       this.jsCode = ' '
-    },
-    allData (category) {
-      this.$http
-        .get(
-          `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products?category=${category}`
-        )
-        .then((res) => {
-          this.scheduleData = res.data.products
-          console.log(this.scheduleData)
-        })
-        .catch((err) => {
-          console.log(err)
-        })
     },
     save () {
       const { id } = this.$route.params
@@ -152,7 +124,6 @@ ctx.stroke();`,
       } else {
         alert('已存在')
       }
-      console.log(this.saveId)
       localStorage.setItem('saveId', JSON.stringify(this.saveId))
     }
   },
@@ -162,7 +133,6 @@ ctx.stroke();`,
       theme: 'dracula',
       mode: 'javascript'
     })
-    this.allData('普通')
   }
 }
 </script>

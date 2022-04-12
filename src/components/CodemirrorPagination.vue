@@ -30,6 +30,7 @@
 <script>
 export default {
   props: ['pages'],
+  emits: ['get-course'],
   data () {
     return {
       saveId: JSON.parse(localStorage.getItem('saveId')) || []

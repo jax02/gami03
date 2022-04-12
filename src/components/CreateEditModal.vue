@@ -86,7 +86,7 @@
                 <label for="courseKeywords" class="form-label"
                   >片段碼</label
                 >
-                <input
+                <textarea
                   type="text"
                   class="form-control"
                   id="courseCode"
