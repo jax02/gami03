@@ -1,8 +1,7 @@
 <template>
   <div class="container">
-    <div class="row">
-      <div class="col"></div>
-      <div class="col text-start">
+    <div class="row d-flex justify-content-center align-items-center">
+      <div class="col-10 col-lg-6 text-start">
         <div class="mb-3">
           <label for="email" class="form-label">帳號</label>
           <input
@@ -23,20 +22,28 @@
             placeholder="請輸入密碼"
           />
         </div>
+        <div class="container d-flex justify-content-center">
+        <div class="row">
+          <!-- <div class="col">
         <button type="button" class="btn btn-primary" @click="login">
           登入
-        </button>
+        </button></div>
+        <div class="col">
         <button type="button" class="btn btn-primary mx-3" @click="register">
           註冊
-        </button>
-        <button type="button" class="btn btn-primary mx-3" @click="googleLogin">
+        </button></div> -->
+        <div class="col">
+        <button type="button" class="btn btn-primary" @click="googleLogin">
           google 登入
         </button>
-        <button type="button" class="btn btn-primary mx-3" @click="logout">
+        </div>
+        <!-- <div class="col">
+        <button type="button" class="btn btn-primary" @click="logout">
           登出
-        </button>
+        </button></div> -->
+        </div>
+        </div>
       </div>
-      <div class="col"></div>
     </div>
     <br />
 

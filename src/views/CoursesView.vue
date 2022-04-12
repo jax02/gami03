@@ -47,7 +47,10 @@
         v-for="item in courseData"
         :key="item.id"
       >
-        <div class="card h-100" style="width: 18rem">
+        <div class="position-relative card h-100" style="width: 18rem">
+          <span v-for="id in saveId" :key="id+123">
+            <span v-if="item.id === id" id="finish" class="mt-3 me-3 position-absolute top-0 end-0 badge rounded-pill bg-primary">完成</span>
+          </span>
           <img
             v-if="item.imageUrl"
             :src="item.imageUrl"
@@ -82,7 +85,8 @@
 export default {
   data () {
     return {
-      courseData: []
+      courseData: [],
+      saveId: JSON.parse(localStorage.getItem('saveId')) || []
     }
   },
   methods: {
@@ -113,6 +117,12 @@ export default {
   },
   mounted () {
     this.getData()
+    console.log(this.saveId)
   }
 }
 </script>
+<style>
+#finish{
+  transform:rotate(25deg)
+}
+</style>

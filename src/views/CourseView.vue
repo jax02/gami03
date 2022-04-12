@@ -1,5 +1,5 @@
 <template>
-  <h2>單一課程{{ scheduleData.length }}</h2>
+  <h2>單一課程</h2>
   <div class="container my-4">
     <div class="row">
       <div class="col-lg-6 mb-2">
@@ -8,6 +8,10 @@
           <div class="card-body text-start">
             <h5 class="card-title">{{ this.courseData.title }}</h5>
             <p class="card-text">{{ this.courseData.description }}</p>
+            <p class=""><span>相關指令：</span><button type="button" class="me-2 btn badge bg-secondary">fillRect</button>
+            <button type="button" class="me-2 btn badge bg-secondary">moveTo</button>
+            <button type="button" class="me-2 btn badge bg-secondary">lineTo</button>
+            <button type="button" class="me-2 btn badge bg-secondary">stroke</button></p>
           </div>
         </div>
       </div>
@@ -23,17 +27,23 @@
         </div>
       </div>
     </div>
+    <div class="row">
+      <div class="col">
+        <pagination :pages="scheduleData"  @get-course="getData"></pagination>
+      </div>
+    </div>
   </div>
   <div class="container">
-    <div class="row">
+    <div class="row mb-5">
       <code-mirror></code-mirror>
     </div>
   </div>
 </template>
 <script>
 import codeMirror from '@/components/CodeMirror.vue'
+import pagination from '@/components/CodemirrorPagination.vue'
 export default {
-  components: { codeMirror },
+  components: { codeMirror, pagination },
   data () {
     return {
       courseData: [],

@@ -37,23 +37,8 @@ ctx.stroke();</code></pre>
   <div class="container-fluid bg-secondary bg-gradient">
     <div class="container pt-3 pb-3">
       <div class="row">
-        <p class="text-start text-white fs-3 mb-0">
-          目前進度 ：{{ allData.length }}
-        </p>
-        <div class="progress mb-3">
-          <div
-            class="progress-bar progress-bar-striped"
-            role="progressbar"
-            :style="`width:${this.test}%`"
-            aria-valuenow="10"
-            aria-valuemin="0"
-            aria-valuemax="100"
-          ></div>
-        </div>
-      </div>
-      <div class="row">
         <div class="col-12 col-lg-6">
-          <div class="row">
+          <div class="row row-cols-1 row-cols-lg-2">
             <div class="col text-start text-white fs-3">
               <p>javascript :</p>
             </div>
@@ -69,10 +54,17 @@ ctx.stroke();</code></pre>
               </button>
               <button
                 type="button"
-                class="btn btn-lg btn-secondary"
+                class="mx-2 btn btn-lg btn-secondary"
                 @click="refresh"
               >
                 >
+              </button>
+              <button
+                type="button"
+                class="mx-2 btn btn-lg btn-secondary"
+                @click="save"
+              >
+                存檔
               </button>
             </div>
           </div>
@@ -114,7 +106,7 @@ ctx.stroke();`,
       preview: null,
       htmlCode: '',
       jsCode: '',
-      scheduleData: []
+      saveId: JSON.parse(localStorage.getItem('saveId')) || []
       //       content: `let canvas = document.getElementById("myCanvas");
       // let ctx = canvas.getContext("2d");
       // ctx.moveTo(0, 0);
@@ -150,6 +142,18 @@ ctx.stroke();`,
         .catch((err) => {
           console.log(err)
         })
+    },
+    save () {
+      const { id } = this.$route.params
+      const saveId = this.saveId.findIndex(item => item === id)
+      // -1表示沒找到相同的
+      if (saveId === -1) {
+        this.saveId.push(id)
+      } else {
+        alert('已存在')
+      }
+      console.log(this.saveId)
+      localStorage.setItem('saveId', JSON.stringify(this.saveId))
     }
   },
   mounted () {

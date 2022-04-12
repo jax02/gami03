@@ -2,7 +2,7 @@
   <div class="container bgLogin">
     <div class="row h-100 d-flex justify-content-center align-items-center">
       <div
-        class="btnLogin col-12 col-lg-4 p-3 mb-2 bg-secondary text-white rounded-2"
+        class="btnLogin col-10 col-lg-4 p-3 mb-2 bg-secondary text-white rounded-2"
       >
         <div class="mb-3 text-start">
           <label for="userMail" class="form-label">Email address :</label>
@@ -38,7 +38,7 @@
 </template>
 <style>
 .bgLogin {
-  height: 100vh;
+  height: 80vh;
   background-image: linear-gradient(-60deg, rgb(19, 78, 70), #a0a5a5);
   background-size: cover;
 }
