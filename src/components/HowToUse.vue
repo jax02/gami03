@@ -6,12 +6,7 @@
           <div>
             <h1>如何使用</h1>
             <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nam
-              eligendi at quo porro dignissimos voluptas enim vero hic,
-              aspernatur voluptates illo quam? Ea ipsam voluptas in nihil.
-              Cumque commodi exercitationem accusantium, sequi ipsam quisquam!
-              Adipisci maiores reprehenderit molestias quidem nobis, quae
-              exercitationem tenetur eum consectetur qui, sed autem cum aliquam.
+              這是一個學習canvas的學習網站
             </p>
           </div>
         </div>

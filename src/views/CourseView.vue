@@ -8,7 +8,8 @@
           <div class="card-body text-start">
             <h5 class="card-title">{{ this.courseData.title }}</h5>
             <p class="card-text">{{ this.courseData.description }}</p>
-            <p class=""><span>相關指令：</span><button type="button" class="me-2 btn badge bg-secondary">fillRect</button>
+            <p class=""><span>相關指令：</span>
+            <button type="button" class="me-2 btn badge bg-secondary" @click="fillRect">fillRect</button>
             <button type="button" class="me-2 btn badge bg-secondary">moveTo</button>
             <button type="button" class="me-2 btn badge bg-secondary">lineTo</button>
             <button type="button" class="me-2 btn badge bg-secondary">stroke</button></p>
@@ -46,12 +47,22 @@ export default {
   components: { codeMirror, pagination },
   data () {
     return {
-      courseData: [],
+      courseData: {
+        Code: ''
+      },
       scheduleData: [],
       category: null
     }
   },
   methods: {
+    fillRect () {
+      this.courseData.Code = `var canvas = document.getElementById("myCanvas"); 
+var ctx = canvas.getContext("2d"); 
+canvas.width = window.innerWidth; 
+canvas.height = window.innerHeight; 
+// 上方為必要內容 
+ctx.fillRect(20,20,150,100);`
+    },
     getData () {
       // 抓路由上的id值
       const { id } = this.$route.params
