@@ -45,7 +45,14 @@ ctx.stroke();</code></pre>
             <div class="col text-end">
               <button
                 type="button"
-                class="mx-2 btn btn-lg btn-secondary"
+                class="mx-1 btn btn-lg btn-secondary"
+                @click="check"
+              >
+                check
+              </button>
+              <button
+                type="button"
+                class="mx-1 btn btn-lg btn-secondary"
                 data-bs-toggle="offcanvas"
                 data-bs-target="#offcanvasRight"
                 aria-controls="offcanvasRight"
@@ -54,14 +61,14 @@ ctx.stroke();</code></pre>
               </button>
               <button
                 type="button"
-                class="mx-2 btn btn-lg btn-secondary"
+                class="mx-1 btn btn-lg btn-secondary"
                 @click="refresh"
               >
                 >
               </button>
               <button
                 type="button"
-                class="mx-2 btn btn-lg btn-secondary"
+                class="mx-1 btn btn-lg btn-secondary"
                 @click="save"
               >
                 存檔
@@ -99,19 +106,55 @@ export default {
   },
   data () {
     return {
+      //       htmlCode = '<canvas id="myCanvas"></canvas>',
+      //       jsCode = '<scri' + 'pt>' + `var canvas = document.getElementById("myCanvas");
+      // var ctx = canvas.getContext("2d");
+      // canvas.width = window.innerWidth;
+      // canvas.height = window.innerHeight;
+      // // 上方為必要內容
+      // ctx.beginPath();
+      // ctx.arc(100, 75, 50, 0, 2 * Math.PI);
+      // ctx.stroke();` + '</scri' + 'pt>',
+      ansNotZero: [],
+      userData: [],
+      ansData: [],
       code: '',
       saveId: JSON.parse(localStorage.getItem('saveId')) || []
     }
   },
   methods: {
-    refresh () {
-      this.code = this.editor.getValue()
+    canvasInit () {
       this.htmlCode = '<canvas id="myCanvas"></canvas>'
-      this.jsCode = '<scri' + 'pt>' + `${this.code}` + '</scri' + 'pt>'
+      this.jsCode = '<scri' + 'pt>' + `var canvas = document.getElementById("myCanvas"); 
+var ctx = canvas.getContext("2d"); 
+canvas.width = window.innerWidth; 
+canvas.height = window.innerHeight; 
+// 上方為必要內容 
+ctx.beginPath();
+ctx.arc(70, 75, 50, 0, 2 * Math.PI);
+ctx.stroke();
+var ansData = ctx.getImageData(0,0,canvas.width,canvas.height);` +
+'</scri' + 'pt>'
       document.querySelector('#preview').contentWindow.document.open()
+      // const ifr = document.querySelector('#preview').contentWindow
       document
         .querySelector('#preview')
         .contentWindow.document.write(this.htmlCode + this.jsCode)
+      const ifr = document.querySelector('#preview').contentWindow
+      this.ansData = ifr.ansData.data
+    },
+    refresh () {
+      this.canvasInit()
+      this.code = this.editor.getValue()
+      this.htmlCode = '<canvas id="myCanvas"></canvas>'
+      this.jsCode = '<scri' + 'pt>' + `${this.code} var userData = ctx.getImageData(0,0,canvas.width,canvas.height);` + '</scri' + 'pt>'
+      // document.querySelector('#preview').contentWindow.document.open()
+      document
+        .querySelector('#preview')
+        .contentWindow.document.write(this.htmlCode + this.jsCode)
+      const userIfr = document.querySelector('#preview').contentWindow
+      // console.log(userIfr.userData)
+      this.userData = userIfr.userData.data
       document.querySelector('#preview').contentWindow.document.close()
       this.jsCode = ' '
     },
@@ -125,14 +168,53 @@ export default {
         alert('已存在')
       }
       localStorage.setItem('saveId', JSON.stringify(this.saveId))
+    },
+    check () {
+      let ansCount = 0
+      this.userData.forEach(item => {
+        if (item !== 0) {
+          ansCount++
+        }
+      })
+      if (ansCount <= 660) {
+        alert('一樣')
+      } else {
+        alert('不一樣')
+      }
+      // alert(ansCount)
+      //       this.code = this.editor.getValue()
+      //       this.htmlCode = '<canvas id="myCanvas"></canvas>'
+      //       this.jsCode = '<scri' + 'pt>' + `${this.code}var imageData = ctx.getImageData(0,0,canvas.width,canvas.height);
+      // console.log(imageData);` + '</scri' + 'pt>'
+      //       document
+      //         .querySelector('#preview')
+      //         .contentWindow.document.write(this.htmlCode + this.jsCode)
+      // const test = document.querySelector('#preview')
+      // console.log(this.ansData)
+      // let i = this.ansData.length
+      // let count = 0
+      // if (i !== this.userData.length) {
+      //   alert('false1')
+      // } else {
+      //   while (i--) {
+      //     if (this.ansData[i] !== this.userData[i]) {
+      //       count++
+      //     }
+      //   }
+      //   console.log(count)
+      // }
+      // console.log(this.userData)
+      // console.log(JSON.stringify(this.ansData) === JSON.stringify(this.userData))
     }
   },
   mounted () {
+    this.canvasInit()
     this.editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
       lineNumbers: 'true',
       theme: 'dracula',
       mode: 'javascript'
     })
+    // this.ansData = ifr.ansData.data
   }
 }
 </script>
