@@ -34,17 +34,25 @@
       </div>
     </div>
   </div>
-  <div class="container">
+  <!-- <div class="container">
     <div class="row mb-5">
       <code-mirror :courseCode="this.courseData.Code"></code-mirror>
+    </div>
+  </div> -->
+  <br>
+  <br>
+   <div class="container">
+    <div class="row mb-5">
+      <canvas-area :courseCode="this.courseData.Code"></canvas-area>
     </div>
   </div>
 </template>
 <script>
-import codeMirror from '@/components/CodeMirror.vue'
+// import codeMirror from '@/components/CodeMirror.vue'
+import canvasArea from '@/components/CanvasArea.vue'
 import pagination from '@/components/CodemirrorPagination.vue'
 export default {
-  components: { codeMirror, pagination },
+  components: { pagination, canvasArea },
   data () {
     return {
       courseData: {

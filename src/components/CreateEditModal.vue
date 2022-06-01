@@ -96,6 +96,18 @@
               </div>
               <div class="mb-3">
                 <label for="courseKeywords" class="form-label"
+                  >題目</label
+                >
+                <textarea
+                  type="text"
+                  class="form-control"
+                  id="courseCode"
+                  placeholder="請輸入課程題目，包含<script>標籤"
+                  v-model="this.temp.InitQuiz"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="courseKeywords" class="form-label"
                   >難度</label
                 >
                 <input
